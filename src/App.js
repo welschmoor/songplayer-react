@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+/*
+COLORS:
+#574040;
+
+*/
+
+import styled from "styled-components"
+
+import AddSong from "./components/AddSong"
+import Header from "./components/Header"
+import Player from "./components/Player"
+import Queue from "./components/Queue"
+import SongList from "./components/SongList"
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Maindiv>
+      <Header />
+
+      <Grid>
+        <div>
+          <AddSong />
+          <SongList />
+        </div>
+
+        <div>
+          <Player />
+          <Queue />
+        </div>
+
+      </Grid>
+
+    </Maindiv>
   );
 }
+
+
+const Maindiv = styled.div`
+  background-color: #574040;
+`
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`
+
+
+
+
+
+
 
 export default App;
