@@ -37,6 +37,7 @@ const Heading = styled.div`
    color: #c2dfc2;
    font-size: 1.4rem;
    text-shadow: 1px 1px 1px black;
+   cursor: default;
 `
 
 const Icon = styled(IoAlbumsSharp)`

@@ -25,7 +25,7 @@ const AddSong = () => {
       console.log(e)
       setTimeout(() => {
          setShowModal(false)
-      }, 230);
+      }, 160);
 
    }
 
@@ -36,12 +36,12 @@ const AddSong = () => {
 
             <Modal onSubmit={modalSubmit} >
                {img ? <img src={URL.createObjectURL(img)} alt="album cover" style={{ height: 200, width: "100%", objectFit: "cover" }} /> : null}
-               <Input placeholder="enter song name" />
+               <Input placeholder="Enter Song Name" />
                <Label >
-                  <FileInput placeholder="Enter Song Name" type="file" className="fileinput" onChange={e => setImg(e.target.files[0])} />
+                  <FileInput laceholder="Enter Song Name" type="file" className="fileinput" onChange={e => setImg(e.target.files[0])} />
                   Click Here to Upload Image
                </Label>
-               <ButtonM onClick={modalSubmit}>Add</ButtonM>
+               <ButtonM onClick={modalSubmit}>Add Song</ButtonM>
 
             </Modal>
          }
@@ -68,7 +68,7 @@ const Modal = styled.form`
    width: 60%;
    transform: translate(-50%, -50%);
    box-shadow: 0px 0px 0px .5px rgba(0, 0, 0, 0.3), 0 0 14px 3px rgba(0, 0, 0, 0.2);
-
+   z-index: 10;
    background-color: #574040;
 `
 
@@ -81,13 +81,16 @@ const ModalPlane = styled.div`
    height: 100%;
    transform: translate(-50%, -50%);
    backdrop-filter: blur(2px);
+   -webkit-backdrop-filter: blur(2px);
+   z-index: 1;
 `
 
 const Label = styled.label`
+   cursor: pointer;
    display: flex;
    align-items: center;
    border: none;
-   box-shadow: 0px 0px 0px .5px rgba(0, 0, 0, 0.3);
+   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.3);
 
    width: 100%;
    min-height: 50px;
@@ -97,7 +100,7 @@ const Label = styled.label`
  
    color: hsl(120, 11%, 72%);
    text-shadow: 1px 1px 1px black;
-   padding-left: 30px;
+   padding-left: 18px;
 
 
    :focus {
@@ -105,11 +108,12 @@ const Label = styled.label`
       box-shadow: inset 0px 0px 0px 5px rgba(0, 0, 0, 0.4);
    }
 
-   [type="file"] {
+  
 `
 
 
 const ButtonM = styled.div`
+   cursor: pointer;
    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.5), 0 0 5px 3px rgba(0, 0, 0, 0.1);
    color: #574040;
    text-shadow: none;
@@ -153,6 +157,7 @@ const Form = styled.form`
 `
 
 const Button = styled.div`
+      cursor: pointer;
    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.5), 0 0 5px 3px rgba(0, 0, 0, 0.1);
    color: #574040;
    text-shadow: none;

@@ -13,13 +13,17 @@ html, body {
   text-shadow: 1px 1px 1px black;
 }
 
+
 ::placeholder {
   color: hsl(120, 11%, 72%);
   text-shadow: 1px 1px 1px black;
-  padding-left: 13px;
+
+ 
   font-size: 0.8rem;
 }
 
-input[type="file"] {
-  display: none;
+::-moz-placeholder { 
+  color: hsl(120, 11%, 72%);
+  text-shadow: 1px 1px 1px black;
+  opacity:  1;
 }
