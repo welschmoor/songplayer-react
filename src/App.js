@@ -39,11 +39,17 @@ function App() {
 
 const Maindiv = styled.div`
   background-color: #574040;
+  height: 100vh;
 `
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr;
+    row-gap: 50px;
+  }
 `
 
 

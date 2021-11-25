@@ -9,4 +9,13 @@
 html, body {
   font-size: 125%;
   font-family: Arial, Helvetica, sans-serif;
+  color: #c2dfc2;
+  text-shadow: 1px 1px 1px black;
+}
+
+::placeholder {
+  color: hsl(120, 11%, 72%);
+  text-shadow: 1px 1px 1px black;
+  padding-left: 13px;
+  font-size: 0.8rem;
 }

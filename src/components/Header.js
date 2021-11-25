@@ -23,7 +23,7 @@ const HeaderDiv = styled.header`
    background-color: #574040;
    height: 60px;
    box-shadow: 0px 0px 0px .5px rgba(0, 0, 0, 0.3);
- 
+   margin-bottom: 10px;
    `
 
 const Navbar = styled.nav`
