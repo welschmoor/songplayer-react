@@ -19,3 +19,7 @@ html, body {
   padding-left: 13px;
   font-size: 0.8rem;
 }
+
+input[type="file"] {
+  display: none;
+}

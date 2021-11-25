@@ -6,10 +6,13 @@ import styled from "styled-components"
 
 const AddSong = () => {
    const [onChangeSt, setOnChangeSt] = useState('')
+   const [showModal, setShowModal] = useState(false)
+   const [img, setImg] = useState('')
 
    const submitHandler = e => {
       e.preventDefault()
       console.log(e) // nothing appears in console
+      setShowModal(true)
    }
 
    const changeHandler = e => {
@@ -17,25 +20,137 @@ const AddSong = () => {
       console.log(e.target.value)
    }
 
+   const modalSubmit = e => {
+      e.preventDefault()
+      console.log(e)
+      setTimeout(() => {
+         setShowModal(false)
+      }, 230);
+
+   }
+
    return (
-      <div>
-         <Form onSubmit={()=> submitHandler()} >
-            <Input placeholder="Paste YouTube URL here" required name="input" onChange={changeHandler} />
-            <Button type="submit" onClick={submitHandler} >
-               <Icon /> <Span>Add Song</Span>
-            </Button>
-         </Form>
-      </div>
+      <>
+         {showModal && <ModalPlane onClick={() => setShowModal(false)} />}
+         {showModal &&
+
+            <Modal onSubmit={modalSubmit} >
+               {img ? <img src={URL.createObjectURL(img)} alt="album cover" style={{ height: 200, width: "100%", objectFit: "cover" }} /> : null}
+               <Input placeholder="enter song name" />
+               <Label >
+                  <FileInput placeholder="Enter Song Name" type="file" className="fileinput" onChange={e => setImg(e.target.files[0])} />
+                  Click Here to Upload Image
+               </Label>
+               <ButtonM onClick={modalSubmit}>Add</ButtonM>
+
+            </Modal>
+         }
+         <div>
+            <Form onSubmit={submitHandler} >
+               <Input placeholder="Paste YouTube URL here" required name="input" onChange={changeHandler} />
+               <Button type="submit" onClick={submitHandler} >
+                  <Icon /> <Span>Add Song</Span>
+               </Button>
+            </Form>
+         </div>
+      </>
    )
 }
 
 
+
+//////////////////////////////////////////////////
+//  MODAL
+const Modal = styled.form`
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   width: 60%;
+   transform: translate(-50%, -50%);
+   box-shadow: 0px 0px 0px .5px rgba(0, 0, 0, 0.3), 0 0 14px 3px rgba(0, 0, 0, 0.2);
+
+   background-color: #574040;
+`
+
+const ModalPlane = styled.div`
+   position: absolute;
+   background-color: rgba(46, 46, 46, 0.5);
+   left: 50%;
+   top: 50%;
+   width: 100%;
+   height: 100%;
+   transform: translate(-50%, -50%);
+   backdrop-filter: blur(2px);
+`
+
+const Label = styled.label`
+   display: flex;
+   align-items: center;
+   border: none;
+   box-shadow: 0px 0px 0px .5px rgba(0, 0, 0, 0.3);
+
+   width: 100%;
+   min-height: 50px;
+   font-size: 1rem;
+   background-color: hsl(0, 15.23%, 37.6%);
+   font-size: 0.8rem;
+ 
+   color: hsl(120, 11%, 72%);
+   text-shadow: 1px 1px 1px black;
+   padding-left: 30px;
+
+
+   :focus {
+      outline: none;
+      box-shadow: inset 0px 0px 0px 5px rgba(0, 0, 0, 0.4);
+   }
+
+   [type="file"] {
+`
+
+
+const ButtonM = styled.div`
+   box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.5), 0 0 5px 3px rgba(0, 0, 0, 0.1);
+   color: #574040;
+   text-shadow: none;
+   /* background-color: #8eb68e; */
+   background: linear-gradient(180deg, #bbdfbb 0%, #8eb68e 100%);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 6px 18px;
+   width: 180px;
+   min-width: 180px;
+   font-weight: bold;
+   font-size: 1rem;
+   min-height: 49px;
+   height: 49px;
+   transition: transform 0.1s;
+   width: 100%;
+ 
+
+   * {
+      transition: transform 0.2s;
+   }
+   :active {
+      transform: scale(0.90);
+   }
+`
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////
+//  FORM
 const Form = styled.form`
    display: flex;
    align-items: center;
    min-height: 58px;
 `
-
 
 const Button = styled.div`
    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.5), 0 0 5px 3px rgba(0, 0, 0, 0.1);
@@ -82,19 +197,24 @@ const Input = styled.input`
 
    color: hsl(120, 11%, 72%);
   text-shadow: 1px 1px 1px black;
-  padding-left: 13px;
+  padding-left: 18px;
 
 
    :focus {
       outline: none;
       box-shadow: inset 0px 0px 0px 5px rgba(0, 0, 0, 0.4);
-
    }
+
+   [type="file"] {
+    display: none;
+}
 `
 
 
 
-
+const FileInput = styled.input`
+   display: none;
+`
 
 
 
@@ -110,5 +230,15 @@ const Icon = styled(IoAddOutline)`
       position: absolute;
    }
 `
+
+
+
+
+
+
+
+
+
+
 
 export default AddSong
