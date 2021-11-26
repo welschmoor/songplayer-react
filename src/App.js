@@ -5,7 +5,7 @@ hsl(0, 15.23%, 37.6%);
 
 */
 
-import styled from "styled-components"
+import styled, { createGlobalStyle } from "styled-components"
 
 import AddSong from "./components/AddSong"
 import Header from "./components/Header"
@@ -15,11 +15,18 @@ import SongList from "./components/SongList"
 import Sidebar from "./components/Sidebar"
 import Footer from "./components/Footer"
 
+const GlobalStyle = createGlobalStyle`
+  :root {
+    --globalBGColor: #white;
 
+  }
+`;
+// var(--globalBGColor)
 
 function App() {
   return (
     <Maindiv>
+      <GlobalStyle />
       <Header />
 
       <Grid>
@@ -70,6 +77,7 @@ const Grid = styled.div`
 `
 
 const SecondCol = styled.div`
+
   @media screen and (max-width: 800px) {
    
       row-gap: 50px;

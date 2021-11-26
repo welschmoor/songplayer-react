@@ -1,23 +1,32 @@
 
+import { useQuery } from "@apollo/client"
 import styled from "styled-components"
+import { GET_SONGS } from "../graphql/queries"
 import Song from "./Song"
 
-const songData = [
-   {title: "Boogie Boogie"},
-   {title: "Moogie Schmoogie"},
-   {title: "Mookie Zoogie"},
-   {title: "Lookie Boogie"},
-   {title: "Cookie Noogie"},
-   {title: "Sookie Voogie"},
-]
+// const songData = [
+//    {title: "Boogie Boogie"},
+//    {title: "Moogie Schmoogie"},
+//    {title: "Mookie Zoogie"},
+//    {title: "Lookie Boogie"},
+//    {title: "Cookie Noogie"},
+//    {title: "Sookie Voogie"},
+// ]
 
 const SongList = () => {
+   const {data, loading, error } = useQuery(GET_SONGS)
+
+
+   if (loading) {
+      return <ListDiv><Spinner /></ListDiv>
+   }
+   if (error) return  <ListDiv>Error getting songs...</ListDiv>
    return(
       <ListDiv>
  
-         {songData.map(e => {
+         {data.songs.map(e => {
             return (
-               <Song title={e.title} />
+               <Song title={e.title} key={e.id} />
             )
          })}
 
@@ -54,7 +63,7 @@ margin-top: 20px;
 
   @keyframes spin {
   0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  100% { transform: rotate(720deg); }
 }
 `
 

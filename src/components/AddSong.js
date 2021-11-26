@@ -1,13 +1,28 @@
 
+import React, { useEffect } from "react"
+
 import { useState } from "react"
 import { IoAddOutline } from "react-icons/io5";
 import styled from "styled-components"
-
+import SoundcloudPlayer from 'react-player/lib/players/SoundCloud'
+import YouTubePlayer from "react-player/youtube";
+import ReactPlayer from "react-player";
+import { ADD_SONG } from "../graphql/mutations";
+import { useMutation } from '@apollo/client'
 
 const AddSong = () => {
+   const [addSong] = useMutation(ADD_SONG)
    const [onChangeSt, setOnChangeSt] = useState('')
    const [showModal, setShowModal] = useState(false)
+   const [playable, setPlayable] = useState(false)
    const [img, setImg] = useState('')
+   const [url, setUrl] = useState('')
+   const [songState, setSongState] = useState({ duration: 0, title: "", author: "", thumbnail: ""})
+
+   useEffect(()=>{
+     const isPlayable = SoundcloudPlayer.canPlay(url) || YouTubePlayer.canPlay(url)
+     setPlayable(isPlayable)
+   }, [url])
 
    const submitHandler = e => {
       e.preventDefault()
@@ -17,17 +32,64 @@ const AddSong = () => {
 
    const changeHandler = e => {
       setOnChangeSt(e.target.value)
+      setUrl(e.target.value)
       console.log(e.target.value)
    }
 
-   const modalSubmit = e => {
+   const modalSubmit = async e => {
       e.preventDefault()
       console.log(e)
       setTimeout(() => {
          setShowModal(false)
-      }, 160);
+      }, 160); 
+
+      const {url, thumbnail, title, duration } = songState
+      await addSong({ variables: { 
+         url: url.length > 0 ? url : null,
+         thumbnail: thumbnail.length > 0 ? url : null,
+         duration: duration.length > 0 ? url : null,
+         title: title.length > 0 ? url : null,
+      }})
+      setSongState({ duration: 0, title: "", author: "", thumbnail: ""})
+      setUrl('')
+   }
+
+   const reactPlayerHandler = async ({player}) => {
+      const nestedPlayer = player.player.player
+      let songData;
+      if (nestedPlayer.getVideoData) {
+         songData = getYouTubeInfo(nestedPlayer)
+      } else if (nestedPlayer.getCurrentSound) {
+         songData = await getSoundCloudInfo(nestedPlayer)
+      }
+      setSongState({...songData, url })
+   }
+
+   const getYouTubeInfo = (nestedPlayer) => {
+      const duration = nestedPlayer.getDuration()
+      const {title, video_id, author } = nestedPlayer.getVideoData()
+      const thumbnail = `http://img.youtube.com/vi/${video_id}/0.jpg`
+      return {
+         duration, title, author, thumbnail
+      }
+   }
+
+   const getSoundCloudInfo = (nestedPlayer) => {
+      return new Promise( resolve => {
+         nestedPlayer.getCurrentSound(songData => {
+            if (songData) {
+               return {
+                  duration: Number(songData.duration)/1000,
+                  title: songData.title,
+                  artist: songData.user.username,
+                  thumbnail: songData.artwork_url.replace("-large", "-t500x500")
+               }
+            }
+         })
+      })
 
    }
+
 
    return (
       <>
@@ -35,8 +97,8 @@ const AddSong = () => {
          {showModal &&
 
             <Modal onSubmit={modalSubmit} >
-               {img ? <img src={URL.createObjectURL(img)} alt="album cover" style={{ height: 200, width: "100%", objectFit: "cover" }} /> : null}
-               <Input placeholder="Enter Song Name" />
+               {img ? <img src={URL.createObjectURL(img)} alt="album cover" style={{ height: 200, width: "100%", objectFit: "cover" }} /> : <center><img src={songState.thumbnail} alt="album cover"/></center>}
+               <Input placeholder="Enter Song Name" value={songState.title} />
                <Label >
                   <FileInput laceholder="Enter Song Name" type="file" className="fileinput" onChange={e => setImg(e.target.files[0])} />
                   Click Here to Upload Image
@@ -48,11 +110,12 @@ const AddSong = () => {
          <div>
             <Form onSubmit={submitHandler} >
                <Input placeholder="Paste YouTube URL here" required name="input" onChange={changeHandler} />
-               <Button type="submit"  >
+               <Button type="submit"  disabled={!playable}>
                   <Icon /> <Span>Add Song</Span>
                </Button>
             </Form>
          </div>
+         <ReactPlayer url={url} hidden onReady={reactPlayerHandler} />
       </>
    )
 }

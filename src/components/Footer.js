@@ -3,10 +3,17 @@ import styled from "styled-components"
 
 const Footer = () => {
    return(
-      <FooterDiv>!!!</FooterDiv>
+      <FooterDiv>
+         <div>
+            
+         </div>
+      </FooterDiv>
    )
 }
 
 
-const FooterDiv = styled.footer``
+const FooterDiv = styled.footer`
+     background-color: #574040;
+`
+
 export default Footer

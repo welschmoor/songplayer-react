@@ -35,6 +35,6 @@ const SidebarDiv = styled.aside`
 const SideBarFiller = styled.div`
       background-color: #574040;
       position: absolute;
-      padding: 10px 25px;
+      padding: 12px 25px;
       transform: translateY(-30px);
 `
