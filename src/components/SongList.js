@@ -15,7 +15,7 @@ import Song from "./Song"
 
 const SongList = () => {
    const {data, loading, error } = useQuery(GET_SONGS)
-
+   console.log("<><><><>data: ", data)
 
    if (loading) {
       return <ListDiv><Spinner /></ListDiv>
@@ -26,7 +26,7 @@ const SongList = () => {
  
          {data.songs.map(e => {
             return (
-               <Song title={e.title} key={e.id} />
+               <Song title={e.title} key={e.id} thumbnail={e.thumbnail} />
             )
          })}
 

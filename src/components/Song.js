@@ -3,11 +3,11 @@ import styled from "styled-components"
 import { IoPlayOutline, IoStarOutline } from "react-icons/io5"
 
 
-const Song = ({ title }) => {
+const Song = ({ title, thumbnail }) => {
    return (
       <SongDiv>
          <div style={{ display: "flex", alignItems: "center", gap: 20, }}>
-            <IMG src="logo192.png" alt="song cover" />
+            <IMG src={thumbnail ? thumbnail : "logo192.png"} alt="song cover" />
             <span>{title.slice(0, 15)}...</span>
 
          </div>

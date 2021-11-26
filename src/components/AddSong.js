@@ -46,9 +46,9 @@ const AddSong = () => {
       const {url, thumbnail, title, duration } = songState
       await addSong({ variables: { 
          url: url.length > 0 ? url : null,
-         thumbnail: thumbnail.length > 0 ? url : null,
-         duration: duration.length > 0 ? url : null,
-         title: title.length > 0 ? url : null,
+         thumbnail: thumbnail.length > 0 ? thumbnail : null,
+         duration: duration.length > 0 ? duration : null,
+         title: title.length > 0 ? title : null,
       }})
       setSongState({ duration: 0, title: "", author: "", thumbnail: ""})
       setUrl('')
@@ -68,7 +68,8 @@ const AddSong = () => {
    const getYouTubeInfo = (nestedPlayer) => {
       const duration = nestedPlayer.getDuration()
       const {title, video_id, author } = nestedPlayer.getVideoData()
-      const thumbnail = `http://img.youtube.com/vi/${video_id}/0.jpg`
+      console.log("video_id ", video_id)
+      const thumbnail = `https://i.ytimg.com/vi/${video_id}/hqdefault.jpg`
       return {
          duration, title, author, thumbnail
       }
