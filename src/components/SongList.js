@@ -5,14 +5,16 @@ import Song from "./Song"
 const songData = [
    {title: "Boogie Boogie"},
    {title: "Moogie Schmoogie"},
-   {title: "Cookie Googie"},
+   {title: "Mookie Zoogie"},
+   {title: "Lookie Boogie"},
+   {title: "Cookie Noogie"},
+   {title: "Sookie Voogie"},
 ]
 
 const SongList = () => {
    return(
       <ListDiv>
  
-
          {songData.map(e => {
             return (
                <Song title={e.title} />
@@ -30,7 +32,7 @@ const SongList = () => {
 
 
 const ListDiv = styled.section`
-margin-top: 10px;
+
    position: relative;
    display: flex;
    flex-direction: column;

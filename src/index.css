@@ -11,6 +11,7 @@ html, body {
   font-family: Arial, Helvetica, sans-serif;
   color: #c2dfc2;
   text-shadow: 1px 1px 1px black;
+  background-color: #574040;
 }
 
 
@@ -26,4 +27,36 @@ html, body {
   color: hsl(120, 11%, 72%);
   text-shadow: 1px 1px 1px black;
   opacity:  1;
+}
+
+
+
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 9px;
+  background: hsl(120, 11%, 72%);
+  border: none;
+  border-radius: 18px;
+}
+
+
+input[type=range]::-webkit-slider-thumb {
+
+ 
+  height: 216px;
+  width: 226px;
+  border-radius: 50%;
+  background: goldenrod;
+  background-color: red;
+  color: red;
+  margin-top: -4px;
+}
+
+input[type=range]::-moz-range-thumb {
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: goldenrod;
 }

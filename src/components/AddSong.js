@@ -48,7 +48,7 @@ const AddSong = () => {
          <div>
             <Form onSubmit={submitHandler} >
                <Input placeholder="Paste YouTube URL here" required name="input" onChange={changeHandler} />
-               <Button type="submit" onClick={submitHandler} >
+               <Button type="submit"  >
                   <Icon /> <Span>Add Song</Span>
                </Button>
             </Form>
@@ -112,7 +112,8 @@ const Label = styled.label`
 `
 
 
-const ButtonM = styled.div`
+const ButtonM = styled.button`
+   border: none;
    cursor: pointer;
    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.5), 0 0 5px 3px rgba(0, 0, 0, 0.1);
    color: #574040;
@@ -156,8 +157,9 @@ const Form = styled.form`
    min-height: 58px;
 `
 
-const Button = styled.div`
-      cursor: pointer;
+const Button = styled.button`
+   border: none;
+   cursor: pointer;
    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.5), 0 0 5px 3px rgba(0, 0, 0, 0.1);
    color: #574040;
    text-shadow: none;
@@ -165,7 +167,7 @@ const Button = styled.div`
    background: linear-gradient(180deg, #bbdfbb 0%, #8eb68e 100%);
    display: flex;
    align-items: center;
-   padding: 6px 18px;
+   padding: 6px 16px;
    width: 180px;
    min-width: 180px;
    font-weight: bold;
@@ -197,12 +199,13 @@ const Input = styled.input`
 
    width: 100%;
    min-height: 50px;
+   min-width: 220px;
    font-size: 1rem;
    background-color: hsl(0, 15.23%, 37.6%);
 
    color: hsl(120, 11%, 72%);
-  text-shadow: 1px 1px 1px black;
-  padding-left: 18px;
+   text-shadow: 1px 1px 1px black;
+   padding-left: 18px;
 
 
    :focus {
@@ -213,6 +216,8 @@ const Input = styled.input`
    [type="file"] {
     display: none;
 }
+
+
 `
 
 
