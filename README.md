@@ -7,6 +7,13 @@ For styling I used:
 
 ## Issues
 
+!!! The project "broke" all of a sudden. $npm start no longer worked. Even pulling earlier version from GitHub on a different computer
+did not solve the issue. What solved the issue was: 
+`$ npm update --legacy-peer-deps`
+Solution provided: https://github.com/facebook/create-react-app/issues/2436
+
+
+
 It is possible that on MAC the fonts will look different with spacing
 looking "off". I used Arial for my font.
 
