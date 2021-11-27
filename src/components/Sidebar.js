@@ -21,7 +21,8 @@ export default Sidebar
 const iconStyle = { cursor: "pointer"}
 
 const SidebarDiv = styled.aside`
-   background-color: #574040;
+ 
+   background-color: ${p => p.theme.navCol};
    display: flex;
    gap: 26px;
    flex-direction: column;
@@ -33,7 +34,7 @@ const SidebarDiv = styled.aside`
 `
 
 const SideBarFiller = styled.div`
-      background-color: #574040;
+      background-color: ${p => p.theme.navCol};
       position: absolute;
       padding: 12px 25px;
       transform: translateY(-30px);

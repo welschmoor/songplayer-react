@@ -1,12 +1,13 @@
 /*
 COLORS:
-#574040;
-hsl(0, 15.23%, 37.6%);
-
+#574040                   sidebar, navbar have this color
+hsl(0, 15.23%, 37.6%)     
+hsl(0, 15.23%, 37.6%)"   card color
 */
 
-import styled, { createGlobalStyle } from "styled-components"
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components"
 
+import React, { useState } from "react"
 import AddSong from "./components/AddSong"
 import Header from "./components/Header"
 import Player from "./components/Player"
@@ -15,40 +16,78 @@ import SongList from "./components/SongList"
 import Sidebar from "./components/Sidebar"
 import Footer from "./components/Footer"
 
-const GlobalStyle = createGlobalStyle`
-  :root {
-    --globalBGColor: #white;
 
-  }
+
+//////////////////////////////////////////////////////////////
+//    THEMES
+//////////////////////////////////////////////////////////////
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    font-size: 125%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: ${p => p.theme.iconCol};
+    text-shadow: 1px 1px 1px black;
+    background-color: ${p => p.theme.navCol};
+    }
 `;
-// var(--globalBGColor)
+
+const lightTheme = {
+  navCol: "#e9e9e9",
+  bgCol: "#e2d8d8",
+  cardCol: "#e9e9e9",
+  iconCol: "hsl(120, 31.182795698924735%, 14.76470588235294%);",
+}
+const darkTheme = {
+  navCol: "#574040",
+  bgCol: "hsl(0, 8.068965517241374%, 22.745098039215687%)",
+  cardCol: "hsl(0, 15.183246073298434%, 37.450980392156865%)",
+  iconCol: "#c2dfc2;",
+}
+
+
+export const ThemeContext = React.createContext()
 
 function App() {
+  const [themeMode, setThemeMode] = useState(false)
+
+  const themeHandler = () => {
+    setThemeMode(p => !p)
+    console.log(themeMode)
+    return "pop"
+  }
+
   return (
-    <Maindiv>
-      <GlobalStyle />
-      <Header />
-
-      <Grid>
-        <SideBarMini >
-          <Sidebar />
-        </SideBarMini>
+    <ThemeContext.Provider value={{ themeMode , themeHandler }} >
+      <ThemeProvider theme={themeMode ? lightTheme : darkTheme}>
 
 
-        <SecondCol>
-          <Player />
-          <Queue />
-        </SecondCol>
+        <Maindiv>
+          <GlobalStyle />
+          <Header />
+
+          <Grid>
+            <SideBarMini >
+              <Sidebar />
+            </SideBarMini>
 
 
-        <FirstCol>
-          <SongList />
-        </FirstCol>
+            <SecondCol>
+              <Player />
+              <Queue />
+            </SecondCol>
 
 
-      </Grid>
-      <Footer />
-    </Maindiv>
+            <FirstCol>
+              <SongList />
+            </FirstCol>
+
+          </Grid>
+
+          <Footer />
+        </Maindiv>
+      </ThemeProvider>
+    </ThemeContext.Provider>
   );
 }
 
@@ -58,7 +97,7 @@ export const globalBG = "hsl(0, 8.068965517241374%, 22.745098039215687%)"
 export const globalLighterBG = "hsl(0, 15.23%, 37.6%)"
 
 const Maindiv = styled.div`
-  background-color: ${globalBG};
+  background-color: ${p => p.theme.bgCol};
   width: 100%;
   height: 100%;
 `

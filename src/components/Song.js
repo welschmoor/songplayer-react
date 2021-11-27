@@ -26,12 +26,11 @@ const SongDiv = styled.div`
    gap: 8px;
    justify-content: space-between;
    align-items: center;
-   background-color: hsl(0, 15.23%, 37.6%);
+   background-color: ${p => p.theme.cardCol};
    width: 100%;
    height: 120px;
    cursor: default;
 `
-
 
 const IMG = styled.img`
    height: 100px; 
@@ -43,6 +42,7 @@ const Icon = styled(IoPlayOutline)`
    font-size: 1.5rem;
    cursor: pointer;
 `
+
 const IconSave = styled(IoStarOutline)`
    font-size: 1.4rem;
    cursor: pointer;

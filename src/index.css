@@ -6,13 +6,7 @@
   box-sizing: border-box;
 }
 
-html, body {
-  font-size: 125%;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #c2dfc2;
-  text-shadow: 1px 1px 1px black;
-  background-color: #574040;
-}
+
 
 
 ::placeholder {

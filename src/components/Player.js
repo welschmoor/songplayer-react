@@ -37,7 +37,7 @@ const PlayerGrid = styled.div`
    gap: 20px;
    justify-content: space-between;
    align-items: center;
-   background-color: hsl(0, 15.23%, 37.6%);
+         background-color: ${p => p.theme.cardCol};
    width: 100%;
    height: 250px;
    cursor: default;
@@ -56,7 +56,7 @@ const Controls = styled.div`
    gap: 8px;
    justify-content: space-between;
    margin-left: 20px;
-   background-color: hsl(0, 15.23%, 37.6%);
+  
    width: 100%;
    height: 250px;
    cursor: default;
