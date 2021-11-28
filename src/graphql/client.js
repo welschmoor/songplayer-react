@@ -7,8 +7,44 @@ export const client = new ApolloClient({
    headers: {
       'x-hasura-admin-secret': "Rr3ojotT5cA40xZvMM5u818cA2ZQqH27X6GXUve4EjSBZSEWuoapxE7aT9SFKyRS"
    },
-   options: { reconnect: true }
+   options: { reconnect: true },
+   typeDefs: gql`
+      type Song {
+         id: uuid!
+         title: String!
+         url: String!
+         thumbnail: String!
+         duration: String!
+      }
+
+      input SongInput {
+         id: uuid!
+         title: String!
+         url: String!
+         thumbnail: String!
+         duration: String!
+      }
+
+      type Query {
+         queue: [Song]!
+      }
+
+      type Mutation {
+         addOrRemoveFromQueue(input: SongInput!): [Song]!
+      }
+   `
 })
+
+// const data = {
+//    queue: []
+//  }
+// client.writeData( {data} )
+
+
+
+
+
+
 
 // import { split } from 'apollo-link'
 // import { HttpLink } from 'apollo-link-http'
