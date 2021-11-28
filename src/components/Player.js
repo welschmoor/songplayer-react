@@ -1,28 +1,36 @@
 
+import React from "react"
 import styled from "styled-components"
-import { IoPlayOutline, IoStarOutline, IoPlaySkipBackOutline, IoPlaySkipForwardOutline } from "react-icons/io5"
+import { IoStop,  IoPlayOutline, IoStarOutline, IoPlaySkipBackOutline, IoPlaySkipForwardOutline, IoPlaySharp } from "react-icons/io5"
+import { SongContext } from "../App"
+
+const Player = () => {
+   const {state, dispatch}= React.useContext(SongContext)
+
+   const playHandler = () => {
+      dispatch(state.isPlaying? { type: "PAUSE_SONG" } : { type: "PLAY_SONG" } )
+   }
 
 
-const Player = ({ }) => {
    return (
       <PlayerGrid>
-
+        
 
          <Controls>
             <div style={{ display: "flex", alignItems: "center", gap: 20, }}>
-               <span>Song Title Here</span>
+               <span>{state.song.title}</span>
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, justifyContent: "space" }}>
-               <div style={{ display: "flex", alignItems: "center", gap: 20, justifyContent: "space" }}>
+               <div style={{ display: "flex", alignItems: "center", gap: 20, justifyContent: "space", margin: 6 }}>
                   <IconSkipBack />
-                  <IconPlay />
+                  {state.isPlaying? <IconStop onClick={playHandler} /> : <IconPlay onClick={playHandler} /> }
                   <IconSkipForw />
                </div>
                <Slider type="range" min={0} max={1} step={0.01} />
             </div>
          </Controls>
-         <IMG src="logo192.png" alt="song cover" />
+         <IMG src={state.song.thumbnail} alt="song cover" />
 
 
       </PlayerGrid>
@@ -65,15 +73,21 @@ const Controls = styled.div`
 
 
 const IMG = styled.img`
-   height: 100px; 
-   width: 100px;
+   height: 140px; 
+   width: auto;
    object-fit:"cover"; 
 `
 
-const IconPlay = styled(IoPlayOutline)`
+const IconPlay = styled(IoPlaySharp)`
    font-size: 1.5rem;
    cursor: pointer;
 `
+const IconStop = styled(IoStop)`
+   font-size: 1.5rem;
+   cursor: pointer;
+`
+
+
 const IconSkipBack = styled(IoPlaySkipBackOutline)`
    font-size: 1.4rem;
    cursor: pointer;

@@ -1,9 +1,23 @@
-
+import React, { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
-import { IoPlayOutline, IoStarOutline } from "react-icons/io5"
+import { IoPlayOutline, IoStarOutline, IoPlaySharp } from "react-icons/io5"
+import { SongContext } from "../App"
 
 
-const Song = ({ title, thumbnail }) => {
+const Song = ({ title, thumbnail, id, entireSongObj }) => {
+   const { state, dispatch } = useContext(SongContext)
+   const [currentSongPlaying, setCurrentSongPlaying] = useState(false)
+
+   useEffect(() => {
+      const isSongPlaying = state.isPlaying && id === state.song.id
+      setCurrentSongPlaying(isSongPlaying)
+   }, [state.song.id, id, state.isPlaying ]) //checking if ids match
+
+   const playHandler = () => {
+      dispatch({ type: "SET_SONG", payload: { song: entireSongObj } })
+      dispatch(state.isPlaying? { type: "PAUSE_SONG" } : { type: "PLAY_SONG" } )
+   }
+
    return (
       <SongDiv>
          <div style={{ display: "flex", alignItems: "center", gap: 20, }}>
@@ -12,7 +26,7 @@ const Song = ({ title, thumbnail }) => {
 
          </div>
          <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginRight: 22, }}>
-            <Icon />
+            {currentSongPlaying ? <IconPlayOn onClick={playHandler} /> : <IconPlayOff onClick={playHandler} />}
             <IconSave />
          </div>
       </SongDiv>
@@ -33,12 +47,16 @@ const SongDiv = styled.div`
 `
 
 const IMG = styled.img`
-   height: 100px; 
-   width: 100px;
+   height: 120px; 
+   width: auto;
    object-fit:"cover"; 
 `
 
-const Icon = styled(IoPlayOutline)`
+const IconPlayOff = styled(IoPlayOutline)`
+   font-size: 1.5rem;
+   cursor: pointer;
+`
+const IconPlayOn = styled(IoPlaySharp)`
    font-size: 1.5rem;
    cursor: pointer;
 `

@@ -18,6 +18,8 @@ import Footer from "./components/Footer"
 
 
 
+
+
 //////////////////////////////////////////////////////////////
 //    THEMES
 //////////////////////////////////////////////////////////////
@@ -29,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${p => p.theme.iconCol};
     text-shadow: 1px 1px 1px black;
     background-color: ${p => p.theme.navCol};
-    }
+  }
 `;
 
 const lightTheme = {
@@ -46,9 +48,47 @@ const darkTheme = {
 }
 
 
+
+
+
+
+//////////////////////////////////////////////////////////////
+//    REDUCER
+//////////////////////////////////////////////////////////////
+
+export const SongContext = React.createContext({
+  song: {
+    id: "a83b63bf-c4a7-4c7a-8194-bfc36107bb05",
+    title: "Alice",
+    thumbnail: "https://i.ytimg.com/vi/wFgAE5SgFnw/hqdefault.jpg",
+    url: "https://www.youtube.com/watch?v=wFgAE5SgFnw",
+    durationstr: "151",
+  },
+  isPlaying: false,
+})
+
 export const ThemeContext = React.createContext()
 
+const songReducer = (state, action) => {
+  switch(action.type) {
+    case ("PLAY_SONG"): {
+      return { ...state, isPlaying: true }
+    }
+    case ("PAUSE_SONG"): {
+      return { ...state, isPlaying: false }
+    }
+    case ("SET_SONG"): {
+      return { ...state, song: action.payload.song }
+    }
+    default: return state;
+  }
+}
+
+
 function App() {
+  const initialSongState = React.useContext(SongContext)
+  const [state, dispatch] = React.useReducer(songReducer, initialSongState)
+
   const [themeMode, setThemeMode] = useState(false)
 
   const themeHandler = () => {
@@ -58,36 +98,38 @@ function App() {
   }
 
   return (
-    <ThemeContext.Provider value={{ themeMode , themeHandler }} >
-      <ThemeProvider theme={themeMode ? lightTheme : darkTheme}>
+    <SongContext.Provider value={{state, dispatch}} >
+      <ThemeContext.Provider value={{ themeMode, themeHandler }} >
+        <ThemeProvider theme={themeMode ? lightTheme : darkTheme}>
 
 
-        <Maindiv>
-          <GlobalStyle />
-          <Header />
+          <Maindiv>
+            <GlobalStyle />
+            <Header />
 
-          <Grid>
-            <SideBarMini >
-              <Sidebar />
-            </SideBarMini>
-
-
-            <SecondCol>
-              <Player />
-              <Queue />
-            </SecondCol>
+            <Grid>
+              <SideBarMini >
+                <Sidebar />
+              </SideBarMini>
 
 
-            <FirstCol>
-              <SongList />
-            </FirstCol>
+              <SecondCol>
+                <Player />
+                <Queue />
+              </SecondCol>
 
-          </Grid>
 
-          <Footer />
-        </Maindiv>
-      </ThemeProvider>
-    </ThemeContext.Provider>
+              <FirstCol>
+                <SongList />
+              </FirstCol>
+
+            </Grid>
+
+            <Footer />
+          </Maindiv>
+        </ThemeProvider>
+      </ThemeContext.Provider>
+    </SongContext.Provider>
   );
 }
 

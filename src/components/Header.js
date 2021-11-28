@@ -44,6 +44,7 @@ const Navbar = styled.nav`
    align-items: center;
    margin-left: 10px;
    z-index: 2;
+   width: 800px;
 `
 
 const Heading = styled.div`
@@ -51,6 +52,7 @@ const Heading = styled.div`
    font-size: 1.4rem;
    text-shadow: 1px 1px 1px black;
    cursor: default;
+   min-width: 120px;
 `
 
 const Icon = styled(IoAlbumsSharp)`

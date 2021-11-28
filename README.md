@@ -2,15 +2,18 @@
 
 For styling I used:
 
-### React Styled-Components
-### Ionic Icons
+##### React Styled-Components
+##### Ionic Icons
+
 
 ## Issues
 
-!!! The project "broke" all of a sudden. $npm start no longer worked. Even pulling earlier version from GitHub on a different computer
+The project "broke" all of a sudden. $npm start no longer worked. Even pulling earlier version from GitHub on a different computer
 did not solve the issue. What solved the issue was: 
-`$ npm update --legacy-peer-deps`
-Solution provided: https://github.com/facebook/create-react-app/issues/2436
+
+`$ npm update --legacy-peer-deps` 
+
+The Solution was provided here: https://github.com/facebook/create-react-app/issues/2436
 
 
 

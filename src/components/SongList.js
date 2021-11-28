@@ -26,7 +26,7 @@ const SongList = () => {
  
          {data.songs.map(e => {
             return (
-               <Song title={e.title} key={e.id} thumbnail={e.thumbnail} />
+               <Song title={e.title} key={e.id} thumbnail={e.thumbnail} id={e.id} entireSongObj={e} />
             )
          })}
 
