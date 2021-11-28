@@ -9,31 +9,30 @@ import { useQuery } from "@apollo/client"
 import ReactPlayer from "react-player"
 
 const Player = () => {
-   const [played, setPlayed] = useState(0)   // for the slider
-   const [seeking, setSeeking] = useState(false)
+   const [played, setPlayed] = React.useState(0);  // for the slider
+   const [seeking, setSeeking] = React.useState(false)
    const { data } = useQuery(GET_QUEUED_SONGS)
    const { state, dispatch } = React.useContext(SongContext)
 
-   const reactPlayerRef = useRef()
+   const reactPlayerRef = React.useRef();
 
 
-
-   console.log("state: ", state)
    const playHandler = () => {
       dispatch(state.isPlaying ? { type: "PAUSE_SONG" } : { type: "PLAY_SONG" })
    }
 
-   const handleSlider = (e, newValue) => {
-      setPlayed(newValue)
-   }
+   function sliderHandler(e) {
+  
+      setPlayed(e.target.value);
+    }
 
-   const mouseDownHandler = () => {
-      setSeeking(true)
+    function mouseDownHandler() {
+      setSeeking(true);
    }
-   const mouseUpHandler = () => {
-      setSeeking(false)
-      reactPlayerRef.current.seekTo(played)
-   }
+   function mouseUpHandler() {
+      setSeeking(false);
+      reactPlayerRef.current.seekTo(played);
+    }
 
    return (
       <PlayerGrid>
@@ -50,16 +49,23 @@ const Player = () => {
                   {state.isPlaying ? <IconStop onClick={playHandler} /> : <IconPlay onClick={playHandler} />}
                   <IconSkipForw />
                </div>
-               <Slider value={played} type="range" min={0} max={1} step={0.01} onChange={handleSlider} onMouseDown={mouseDownHandler} onMouseUp={mouseUpHandler} />
+               <Slider value={played} type="range" min={0} max={1} step={0.01} onChange={sliderHandler} onMouseDown={mouseDownHandler} onMouseUp={mouseUpHandler} />
             </div>
+            <ReactPlayer
+          ref={reactPlayerRef}
+          onProgress={({ played, playedSeconds }) => {
+            if (!seeking) {
+              setPlayed(played);
+              
+            }
+          }}
+          url={state.song.url}
+          playing={state.isPlaying}
+          hidden
+        />
          </Controls>
          <IMG src={state.song.thumbnail} alt="song cover" />
-         <ReactPlayer onProgress={({ played, playedSeconds }) => {
-            if (!seeking) {
-               setPlayed(played)
-            }
 
-         }} url={state.song.url} playing={state.isPlaying} hidden ref={reactPlayerRef} />
 
       </PlayerGrid>
    )
