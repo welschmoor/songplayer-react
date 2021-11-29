@@ -50,7 +50,7 @@ const Navbar = styled.nav`
 const Heading = styled.div`
    color: ${p => p.theme.iconCol};
    font-size: 1.4rem;
-   text-shadow: 1px 1px 1px black;
+   text-shadow: ${p=>p.theme.textShadow};
    cursor: default;
    min-width: 120px;
 `

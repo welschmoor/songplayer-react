@@ -29,26 +29,49 @@ const GlobalStyle = createGlobalStyle`
     font-size: 125%;
     font-family: Arial, Helvetica, sans-serif;
     color: ${p => p.theme.iconCol};
-    text-shadow: 1px 1px 1px black;
+    text-shadow: ${p => p.theme.textShadow};
+
     background-color: ${p => p.theme.navCol};
   }
+  ::placeholder {
+    color: ${p => p.theme.iconCol};
+    text-shadow: ${p => p.theme.textShadow};
+    font-size: 0.8rem;
+  }
+
+  ::-moz-placeholder { 
+    color: hsl(120, 11%, 72%);
+    text-shadow: 1px 1px 1px black;
+    opacity:  1;
+  }
+
 `;
 
 const lightTheme = {
-  navCol: "#e9e9e9",
-  bgCol: "#e2d8d8",
-  cardCol: "#e9e9e9",
+  navCol: "#ffffff",
+  bgCol: "hsl(0, 0%, 95%)",
+  cardCol: "#ffffff",
   iconCol: "hsl(120, 31.182795698924735%, 14.76470588235294%);",
+  textShadow: "none",
+  buttonBg: "#374237;",
 }
 const darkTheme = {
   navCol: "#574040",
   bgCol: "hsl(0, 8.068965517241374%, 22.745098039215687%)",
   cardCol: "hsl(0, 15.183246073298434%, 37.450980392156865%)",
   iconCol: "#c2dfc2;",
+  textShadow: "1px 1px 1px black",
+  buttonBg: "linear-gradient(180deg, #bbdfbb 0%, #8eb68e 100%)",
 }
 
 
-
+// const lightTheme = {
+//   navCol: "#e9e9e9",
+//   bgCol: "#e2d8d8",
+//   cardCol: "#e9e9e9",
+//   iconCol: "hsl(120, 31.182795698924735%, 14.76470588235294%);",
+//   textShadow: "none",
+// }
 
 
 
@@ -70,7 +93,7 @@ export const SongContext = React.createContext({
 export const ThemeContext = React.createContext()
 
 const songReducer = (state, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case ("PLAY_SONG"): {
       return { ...state, isPlaying: true }
     }
@@ -98,7 +121,7 @@ function App() {
   }
 
   return (
-    <SongContext.Provider value={{state, dispatch}} >
+    <SongContext.Provider value={{ state, dispatch }} >
       <ThemeContext.Provider value={{ themeMode, themeHandler }} >
         <ThemeProvider theme={themeMode ? lightTheme : darkTheme}>
 

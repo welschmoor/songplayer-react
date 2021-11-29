@@ -26,6 +26,7 @@ const AddSong = () => {
    }, [url])
 
    const submitHandler = e => {
+      console.log("target", e.target.value)
       e.preventDefault()
       console.log(e) // nothing appears in console
       setShowModal(true)
@@ -139,7 +140,7 @@ const Modal = styled.form`
    transform: translate(-50%, -50%);
    box-shadow: 0px 0px 0px .5px rgba(0, 0, 0, 0.3), 0 0 14px 3px rgba(0, 0, 0, 0.2);
    z-index: 10;
-   background-color: #574040;
+   background-color: ${p=>p.theme.bgCol};
 `
 
 const ModalPlane = styled.div`
@@ -166,6 +167,7 @@ const Label = styled.label`
    min-height: 50px;
    font-size: 1rem;
    background-color: hsl(0, 15.23%, 37.6%);
+   background-color: ${p=>p.theme.bgCol};
    font-size: 0.8rem;
  
    color: hsl(120, 11%, 72%);
@@ -227,10 +229,10 @@ const Button = styled.button`
    border: none;
    cursor: pointer;
    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.5), 0 0 5px 3px rgba(0, 0, 0, 0.1);
-   color: #574040;
+   color: ${p=>p.theme.bgCol};
    text-shadow: none;
    /* background-color: #8eb68e; */
-   background: linear-gradient(180deg, #bbdfbb 0%, #8eb68e 100%);
+   background: ${p=>p.theme.buttonBg};
    display: flex;
    align-items: center;
    padding: 6px 16px;
@@ -269,9 +271,10 @@ const Input = styled.input`
    min-width: 220px;
    font-size: 1rem;
    background-color: hsl(0, 15.23%, 37.6%);
+   background-color: ${p=>p.theme.cardCol};
 
    color: hsl(120, 11%, 72%);
-   text-shadow: 1px 1px 1px black;
+   text-shadow: ${p=>p.theme.textShadow};
    padding-left: 18px;
 
 
@@ -295,11 +298,10 @@ const FileInput = styled.input`
 
 
 
-
-
 const Icon = styled(IoAddOutline)`
    font-size: 34px;
-   color: #574040;
+   color: ${p=>p.theme.navCol};
+
    ${Button}:hover & {
       transform: translateX(50px);
       font-size: 55px;

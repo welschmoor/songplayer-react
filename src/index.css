@@ -9,19 +9,6 @@
 
 
 
-::placeholder {
-  color: hsl(120, 11%, 72%);
-  text-shadow: 1px 1px 1px black;
-
- 
-  font-size: 0.8rem;
-}
-
-::-moz-placeholder { 
-  color: hsl(120, 11%, 72%);
-  text-shadow: 1px 1px 1px black;
-  opacity:  1;
-}
 
 
 

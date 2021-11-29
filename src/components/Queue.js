@@ -29,6 +29,8 @@ const Queue = () => {
 
 const Heading = styled.h3`
    font-size: 1rem;
+   margin-top: 40px;
+   margin-bottom: 20px;
 `
 
 
