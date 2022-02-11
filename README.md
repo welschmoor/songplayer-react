@@ -1,5 +1,7 @@
 # Music Player with React
 
+![preview image for music player build in React](https://github.com/welschmoor/songplayer-react/blob/main/preview_pictures/1.jpg)
+
 For styling I used:
 
 ##### React Styled-Components
